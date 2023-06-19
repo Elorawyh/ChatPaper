@@ -1,7 +1,7 @@
 import subprocess
 import glob, os
 
-folder_path = r"C:\Users\Yollie\Documents\GitHub\ChatPaper\needchating"
+folder_path = r"needchating"
 file_pattern = "*.pdf"
 pdf_paths = glob.glob(os.path.join(folder_path, file_pattern))
 
