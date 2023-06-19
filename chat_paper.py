@@ -17,6 +17,13 @@ import tiktoken
 import fitz, io, os
 from PIL import Image
 
+# os.environ["http_proxy"]="http://127.0.0.1:7890"
+# os.environ["https_proxy"]="https://127.0.0.1:7890"
+
+proxies = {'http': "http://127.0.0.1:7890",
+'https': "http://127.0.0.1:7890"}
+openai.proxy = proxies
+
 
 class Paper:
     def __init__(self, path, title='', url='', abs='', authers=[]):
@@ -300,11 +307,12 @@ class Reader:
         # 创建一个ConfigParser对象
         self.config = configparser.ConfigParser()
         # 读取配置文件
-        self.config.read('apikey.ini')
+        self.config.read(r'apikey.ini')
         OPENAI_KEY = os.environ.get("OPENAI_KEY", "")
         # 获取某个键对应的值
         self.chat_api_list = self.config.get('OpenAI', 'OPENAI_API_KEYS')[1:-1].replace('\'', '').split(',')
         self.chat_api_list.append(OPENAI_KEY)
+
 
         # prevent short strings from being incorrectly used as API keys.
         self.chat_api_list = [api.strip() for api in self.chat_api_list if len(api) > 20]

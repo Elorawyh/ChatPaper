@@ -1,5 +1,6 @@
 import argparse
 import logging
+import os
 from contextlib import redirect_stdout
 from io import StringIO
 from pprint import pformat
@@ -15,6 +16,8 @@ from chat_reviewer import ReviewerParams, chat_reviewer_main
 app = Flask(__name__)
 CORS(app)
 
+os.environ["http_proxy"]="127.0.0.1:7890"
+os.environ["https_proxy"]="127.0.0.1:7890"
 
 @app.route("/", methods=["GET"])
 @app.route("/index", methods=["GET"])
